@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  </head>
+  <body id="graph-body">
+    <nav class="navbar navbar-dark bg-dark ">
+      <a href="/" style="text-decoration:none"><h3 style="color:white;font-size:20px;">Weather Website</h1></a>
+        <h3 class="titleChart"><%=titleName%></h3>
+        <a href="/" ><button class="btn btn-primary">
+              Return Main Page
+            </button>
+            </a>
+      
+  </nav>
+  <div class="chart-container">
+    <div class="chartl chart1">
+      <span class="chart-title"><%=bigData[0].datetime%></span>
+      <canvas id="mChart" width="100%"></canvas>
+    </div>
+  
+    <div class="chartr chart2">
+      <span class="chart-title"><%=bigData[1].datetime%></span>
+      <canvas id="mChart1" width="100%"></canvas>
+    </div>
+    <div class="chartl chart3">
+      <span class="chart-title"><%=bigData[2].datetime%></span>
+      <canvas id="mChart2" width="100%"></canvas>
+    </div>
+    <div class="chartr chart4">
+      <span class="chart-title"><%=bigData[3].datetime%></span>
+      <canvas id="mChart3" width="100%"></canvas>
+    </div>
+    <div class="chartl chart5">
+      <span class="chart-title"><%=bigData[4].datetime%></span>
+      <canvas id="mChart4" width="100%"></canvas>
+    </div>
+  </div>
+    <script>
+      
+      var temp0=<%=bigData[0].hours[0].temp%>; var temp1=<%=bigData[0].hours[1].temp%>; var temp2=<%=bigData[0].hours[2].temp%>; var temp3=<%=bigData[0].hours[3].temp%>;
+      var temp4=<%=bigData[0].hours[4].temp%>; var temp5=<%=bigData[0].hours[5].temp%>; var temp6=<%=bigData[0].hours[6].temp%>; var temp7=<%=bigData[0].hours[7].temp%>;
+      var temp8=<%=bigData[0].hours[8].temp%>; var temp9=<%=bigData[0].hours[9].temp%>; var temp10=<%=bigData[0].hours[10].temp%>; var temp11=<%=bigData[0].hours[11].temp%>;
+      var temp12=<%=bigData[0].hours[12].temp%>; var temp13=<%=bigData[0].hours[13].temp%>; var temp14=<%=bigData[0].hours[14].temp%>; var temp15=<%=bigData[0].hours[15].temp%>;
+      var temp16=<%=bigData[0].hours[16].temp%>; var temp17=<%=bigData[0].hours[17].temp%>; var temp18=<%=bigData[0].hours[18].temp%>; var temp19=<%=bigData[0].hours[19].temp%>;
+      var temp20=<%=bigData[0].hours[20].temp%>; var temp21=<%=bigData[0].hours[21].temp%>; var temp22=<%=bigData[0].hours[22].temp%>; var temp23=<%=bigData[0].hours[23].temp%>;
+       var hum0= <%=bigData[0].hours[0].humidity%>;  var hum1= <%=bigData[0].hours[1].humidity%>;  var hum2= <%=bigData[0].hours[2].humidity%>;  var hum3= <%=bigData[0].hours[3].humidity%>;
+       var hum4= <%=bigData[0].hours[4].humidity%>;  var hum5= <%=bigData[0].hours[5].humidity%>;  var hum6= <%=bigData[0].hours[6].humidity%>;  var hum7= <%=bigData[0].hours[7].humidity%>;
+       var hum8= <%=bigData[0].hours[8].humidity%>;  var hum9= <%=bigData[0].hours[9].humidity%>;  var hum10= <%=bigData[0].hours[10].humidity%>;  var hum11= <%=bigData[0].hours[11].humidity%>;
+       var hum12= <%=bigData[0].hours[12].humidity%>;  var hum13= <%=bigData[0].hours[13].humidity%>;  var hum14= <%=bigData[0].hours[14].humidity%>;  var hum15= <%=bigData[0].hours[15].humidity%>;
+       var hum16= <%=bigData[0].hours[16].humidity%>;  var hum17= <%=bigData[0].hours[17].humidity%>;  var hum18= <%=bigData[0].hours[18].humidity%>;  var hum19= <%=bigData[0].hours[19].humidity%>;
+       var hum20= <%=bigData[0].hours[20].humidity%>;  var hum21= <%=bigData[0].hours[21].humidity%>;  var hum22= <%=bigData[0].hours[22].humidity%>;  var hum23= <%=bigData[0].hours[23].humidity%>;
+      var pre0=<%=bigData[0].hours[0].precipprob%>; var pre1=<%=bigData[0].hours[1].precipprob%>; var pre2=<%=bigData[0].hours[2].precipprob%>; var pre3=<%=bigData[0].hours[3].precipprob%>;
+      var pre4=<%=bigData[0].hours[4].precipprob%>; var pre5=<%=bigData[0].hours[5].precipprob%>; var pre6=<%=bigData[0].hours[6].precipprob%>; var pre7=<%=bigData[0].hours[7].precipprob%>;
+      var pre8=<%=bigData[0].hours[8].precipprob%>; var pre9=<%=bigData[0].hours[9].precipprob%>; var pre10=<%=bigData[0].hours[10].precipprob%>; var pre11=<%=bigData[0].hours[11].precipprob%>;
+      var pre12=<%=bigData[0].hours[12].precipprob%>; var pre13=<%=bigData[0].hours[13].precipprob%>; var pre14=<%=bigData[0].hours[14].precipprob%>; var pre15=<%=bigData[0].hours[15].precipprob%>;
+      var pre16=<%=bigData[0].hours[16].precipprob%>; var pre17=<%=bigData[0].hours[17].precipprob%>; var pre18=<%=bigData[0].hours[18].precipprob%>; var pre19=<%=bigData[0].hours[19].precipprob%>;
+      var pre20=<%=bigData[0].hours[20].precipprob%>; var pre21=<%=bigData[0].hours[21].precipprob%>; var pre22=<%=bigData[0].hours[22].precipprob%>; var pre23=<%=bigData[0].hours[23].precipprob%>;
+
+
+      var temp10=<%=bigData[1].hours[0].temp%>; var temp11=<%=bigData[1].hours[1].temp%>; var temp12=<%=bigData[1].hours[2].temp%>; var temp13=<%=bigData[1].hours[3].temp%>;
+      var temp14=<%=bigData[1].hours[4].temp%>; var temp15=<%=bigData[1].hours[5].temp%>; var temp16=<%=bigData[1].hours[6].temp%>; var temp17=<%=bigData[1].hours[7].temp%>;
+      var temp18=<%=bigData[1].hours[8].temp%>; var temp19=<%=bigData[1].hours[9].temp%>; var temp110=<%=bigData[1].hours[10].temp%>; var temp111=<%=bigData[1].hours[11].temp%>;
+      var temp112=<%=bigData[1].hours[12].temp%>; var temp113=<%=bigData[1].hours[13].temp%>; var temp114=<%=bigData[1].hours[14].temp%>; var temp115=<%=bigData[1].hours[15].temp%>;
+      var temp116=<%=bigData[1].hours[16].temp%>; var temp117=<%=bigData[1].hours[17].temp%>; var temp118=<%=bigData[1].hours[18].temp%>; var temp119=<%=bigData[1].hours[19].temp%>;
+      var temp120=<%=bigData[1].hours[20].temp%>; var temp121=<%=bigData[1].hours[21].temp%>; var temp122=<%=bigData[1].hours[22].temp%>; var temp123=<%=bigData[1].hours[23].temp%>;
+       var hum10= <%=bigData[1].hours[0].humidity%>;  var hum11= <%=bigData[1].hours[1].humidity%>;  var hum12= <%=bigData[1].hours[2].humidity%>;  var hum13= <%=bigData[1].hours[3].humidity%>;
+       var hum14= <%=bigData[1].hours[4].humidity%>;  var hum15= <%=bigData[1].hours[5].humidity%>;  var hum16= <%=bigData[1].hours[6].humidity%>;  var hum17= <%=bigData[1].hours[7].humidity%>;
+       var hum18= <%=bigData[1].hours[8].humidity%>;  var hum19= <%=bigData[1].hours[9].humidity%>;  var hum110= <%=bigData[1].hours[10].humidity%>;  var hum111= <%=bigData[1].hours[11].humidity%>;
+       var hum112= <%=bigData[1].hours[12].humidity%>;  var hum113= <%=bigData[1].hours[13].humidity%>;  var hum114= <%=bigData[1].hours[14].humidity%>;  var hum115= <%=bigData[1].hours[15].humidity%>;
+       var hum116= <%=bigData[1].hours[16].humidity%>;  var hum117= <%=bigData[1].hours[17].humidity%>;  var hum118= <%=bigData[1].hours[18].humidity%>;  var hum119= <%=bigData[1].hours[19].humidity%>;
+       var hum120= <%=bigData[1].hours[20].humidity%>;  var hum121= <%=bigData[1].hours[21].humidity%>;  var hum122= <%=bigData[1].hours[22].humidity%>;  var hum123= <%=bigData[1].hours[23].humidity%>;
+      var pre10=<%=bigData[1].hours[0].precipprob%>; var pre11=<%=bigData[1].hours[1].precipprob%>; var pre12=<%=bigData[1].hours[2].precipprob%>; var pre13=<%=bigData[1].hours[3].precipprob%>;
+      var pre14=<%=bigData[1].hours[4].precipprob%>; var pre15=<%=bigData[1].hours[5].precipprob%>; var pre16=<%=bigData[1].hours[6].precipprob%>; var pre17=<%=bigData[1].hours[7].precipprob%>;
+      var pre18=<%=bigData[1].hours[8].precipprob%>; var pre19=<%=bigData[1].hours[9].precipprob%>; var pre110=<%=bigData[1].hours[10].precipprob%>; var pre111=<%=bigData[1].hours[11].precipprob%>;
+      var pre112=<%=bigData[1].hours[12].precipprob%>; var pre113=<%=bigData[1].hours[13].precipprob%>; var pre114=<%=bigData[1].hours[14].precipprob%>; var pre115=<%=bigData[1].hours[15].precipprob%>;
+      var pre116=<%=bigData[1].hours[16].precipprob%>; var pre117=<%=bigData[1].hours[17].precipprob%>; var pre118=<%=bigData[1].hours[18].precipprob%>; var pre119=<%=bigData[1].hours[19].precipprob%>;
+      var pre120=<%=bigData[1].hours[20].precipprob%>; var pre121=<%=bigData[1].hours[21].precipprob%>; var pre122=<%=bigData[1].hours[22].precipprob%>; var pre123=<%=bigData[1].hours[23].precipprob%>;
+
+
+      var temp20=<%=bigData[2].hours[0].temp%>; var temp21=<%=bigData[2].hours[1].temp%>; var temp22=<%=bigData[2].hours[2].temp%>; var temp23=<%=bigData[2].hours[3].temp%>;
+      var temp24=<%=bigData[2].hours[4].temp%>; var temp25=<%=bigData[2].hours[5].temp%>; var temp26=<%=bigData[2].hours[6].temp%>; var temp27=<%=bigData[2].hours[7].temp%>;
+      var temp28=<%=bigData[2].hours[8].temp%>; var temp29=<%=bigData[2].hours[9].temp%>; var temp210=<%=bigData[2].hours[10].temp%>; var temp211=<%=bigData[2].hours[11].temp%>;
+      var temp212=<%=bigData[2].hours[12].temp%>; var temp213=<%=bigData[2].hours[13].temp%>; var temp214=<%=bigData[2].hours[14].temp%>; var temp215=<%=bigData[2].hours[15].temp%>;
+      var temp216=<%=bigData[2].hours[16].temp%>; var temp217=<%=bigData[2].hours[17].temp%>; var temp218=<%=bigData[2].hours[18].temp%>; var temp219=<%=bigData[2].hours[19].temp%>;
+      var temp220=<%=bigData[2].hours[20].temp%>; var temp221=<%=bigData[2].hours[21].temp%>; var temp222=<%=bigData[2].hours[22].temp%>; var temp223=<%=bigData[2].hours[23].temp%>;
+       var hum20= <%=bigData[2].hours[0].humidity%>;  var hum21= <%=bigData[2].hours[1].humidity%>;  var hum22= <%=bigData[2].hours[2].humidity%>;  var hum23= <%=bigData[2].hours[3].humidity%>;
+       var hum24= <%=bigData[2].hours[4].humidity%>;  var hum25= <%=bigData[2].hours[5].humidity%>;  var hum26= <%=bigData[2].hours[6].humidity%>;  var hum27= <%=bigData[2].hours[7].humidity%>;
+       var hum28= <%=bigData[2].hours[8].humidity%>;  var hum29= <%=bigData[2].hours[9].humidity%>;  var hum210= <%=bigData[2].hours[10].humidity%>;  var hum211= <%=bigData[2].hours[11].humidity%>;
+       var hum212= <%=bigData[2].hours[12].humidity%>;  var hum213= <%=bigData[2].hours[13].humidity%>;  var hum214= <%=bigData[2].hours[14].humidity%>;  var hum215= <%=bigData[2].hours[15].humidity%>;
+       var hum216= <%=bigData[2].hours[16].humidity%>;  var hum217= <%=bigData[2].hours[17].humidity%>;  var hum218= <%=bigData[2].hours[18].humidity%>;  var hum219= <%=bigData[2].hours[19].humidity%>;
+       var hum220= <%=bigData[2].hours[20].humidity%>;  var hum221= <%=bigData[2].hours[21].humidity%>;  var hum222= <%=bigData[2].hours[22].humidity%>;  var hum223= <%=bigData[2].hours[23].humidity%>;
+      var pre20=<%=bigData[2].hours[0].precipprob%>; var pre21=<%=bigData[2].hours[1].precipprob%>; var pre22=<%=bigData[2].hours[2].precipprob%>; var pre23=<%=bigData[2].hours[3].precipprob%>;
+      var pre24=<%=bigData[2].hours[4].precipprob%>; var pre25=<%=bigData[2].hours[5].precipprob%>; var pre26=<%=bigData[2].hours[6].precipprob%>; var pre27=<%=bigData[2].hours[7].precipprob%>;
+      var pre28=<%=bigData[2].hours[8].precipprob%>; var pre29=<%=bigData[2].hours[9].precipprob%>; var pre210=<%=bigData[2].hours[10].precipprob%>; var pre211=<%=bigData[2].hours[11].precipprob%>;
+      var pre212=<%=bigData[2].hours[12].precipprob%>; var pre213=<%=bigData[2].hours[13].precipprob%>; var pre214=<%=bigData[2].hours[14].precipprob%>; var pre215=<%=bigData[2].hours[15].precipprob%>;
+      var pre216=<%=bigData[2].hours[16].precipprob%>; var pre217=<%=bigData[2].hours[17].precipprob%>; var pre218=<%=bigData[2].hours[18].precipprob%>; var pre219=<%=bigData[2].hours[19].precipprob%>;
+      var pre220=<%=bigData[2].hours[20].precipprob%>; var pre221=<%=bigData[2].hours[21].precipprob%>; var pre222=<%=bigData[2].hours[22].precipprob%>; var pre223=<%=bigData[2].hours[23].precipprob%>;
+
+
+      var temp30=<%=bigData[3].hours[0].temp%>; var temp31=<%=bigData[3].hours[1].temp%>; var temp32=<%=bigData[3].hours[2].temp%>; var temp33=<%=bigData[3].hours[3].temp%>;
+      var temp34=<%=bigData[3].hours[4].temp%>; var temp35=<%=bigData[3].hours[5].temp%>; var temp36=<%=bigData[3].hours[6].temp%>; var temp37=<%=bigData[3].hours[7].temp%>;
+      var temp38=<%=bigData[3].hours[8].temp%>; var temp39=<%=bigData[3].hours[9].temp%>; var temp310=<%=bigData[3].hours[10].temp%>; var temp311=<%=bigData[3].hours[11].temp%>;
+      var temp312=<%=bigData[3].hours[12].temp%>; var temp313=<%=bigData[3].hours[13].temp%>; var temp314=<%=bigData[3].hours[14].temp%>; var temp315=<%=bigData[3].hours[15].temp%>;
+      var temp316=<%=bigData[3].hours[16].temp%>; var temp317=<%=bigData[3].hours[17].temp%>; var temp318=<%=bigData[3].hours[18].temp%>; var temp319=<%=bigData[3].hours[19].temp%>;
+      var temp320=<%=bigData[3].hours[20].temp%>; var temp321=<%=bigData[3].hours[21].temp%>; var temp322=<%=bigData[3].hours[22].temp%>; var temp323=<%=bigData[3].hours[23].temp%>;
+       var hum30= <%=bigData[3].hours[0].humidity%>;  var hum31= <%=bigData[3].hours[1].humidity%>;  var hum32= <%=bigData[3].hours[2].humidity%>;  var hum33= <%=bigData[3].hours[3].humidity%>;
+       var hum34= <%=bigData[3].hours[4].humidity%>;  var hum35= <%=bigData[3].hours[5].humidity%>;  var hum36= <%=bigData[3].hours[6].humidity%>;  var hum37= <%=bigData[3].hours[7].humidity%>;
+       var hum38= <%=bigData[3].hours[8].humidity%>;  var hum39= <%=bigData[3].hours[9].humidity%>;  var hum310= <%=bigData[3].hours[10].humidity%>;  var hum311= <%=bigData[3].hours[11].humidity%>;
+       var hum312= <%=bigData[3].hours[12].humidity%>;  var hum313= <%=bigData[3].hours[13].humidity%>;  var hum314= <%=bigData[3].hours[14].humidity%>;  var hum315= <%=bigData[3].hours[15].humidity%>;
+       var hum316= <%=bigData[3].hours[16].humidity%>;  var hum317= <%=bigData[3].hours[17].humidity%>;  var hum318= <%=bigData[3].hours[18].humidity%>;  var hum319= <%=bigData[3].hours[19].humidity%>;
+       var hum320= <%=bigData[3].hours[20].humidity%>;  var hum321= <%=bigData[3].hours[21].humidity%>;  var hum322= <%=bigData[3].hours[22].humidity%>;  var hum323= <%=bigData[3].hours[23].humidity%>;
+      var pre30=<%=bigData[3].hours[0].precipprob%>; var pre31=<%=bigData[3].hours[1].precipprob%>; var pre32=<%=bigData[3].hours[2].precipprob%>; var pre33=<%=bigData[3].hours[3].precipprob%>;
+      var pre34=<%=bigData[3].hours[4].precipprob%>; var pre35=<%=bigData[3].hours[5].precipprob%>; var pre36=<%=bigData[3].hours[6].precipprob%>; var pre37=<%=bigData[3].hours[7].precipprob%>;
+      var pre38=<%=bigData[3].hours[8].precipprob%>; var pre39=<%=bigData[3].hours[9].precipprob%>; var pre310=<%=bigData[3].hours[10].precipprob%>; var pre311=<%=bigData[3].hours[11].precipprob%>;
+      var pre312=<%=bigData[3].hours[12].precipprob%>; var pre313=<%=bigData[3].hours[13].precipprob%>; var pre314=<%=bigData[3].hours[14].precipprob%>; var pre315=<%=bigData[3].hours[15].precipprob%>;
+      var pre316=<%=bigData[3].hours[16].precipprob%>; var pre317=<%=bigData[3].hours[17].precipprob%>; var pre318=<%=bigData[3].hours[18].precipprob%>; var pre319=<%=bigData[3].hours[19].precipprob%>;
+      var pre320=<%=bigData[3].hours[20].precipprob%>; var pre321=<%=bigData[3].hours[21].precipprob%>; var pre322=<%=bigData[3].hours[22].precipprob%>; var pre323=<%=bigData[3].hours[23].precipprob%>;
+
+      var temp40=<%=bigData[4].hours[0].temp%>; var temp41=<%=bigData[4].hours[1].temp%>; var temp42=<%=bigData[4].hours[2].temp%>; var temp43=<%=bigData[4].hours[3].temp%>;
+      var temp44=<%=bigData[4].hours[4].temp%>; var temp45=<%=bigData[4].hours[5].temp%>; var temp46=<%=bigData[4].hours[6].temp%>; var temp47=<%=bigData[4].hours[7].temp%>;
+      var temp48=<%=bigData[4].hours[8].temp%>; var temp49=<%=bigData[4].hours[9].temp%>; var temp410=<%=bigData[4].hours[10].temp%>; var temp411=<%=bigData[4].hours[11].temp%>;
+      var temp412=<%=bigData[4].hours[12].temp%>; var temp413=<%=bigData[4].hours[13].temp%>; var temp414=<%=bigData[4].hours[14].temp%>; var temp415=<%=bigData[4].hours[15].temp%>;
+      var temp416=<%=bigData[4].hours[16].temp%>; var temp417=<%=bigData[4].hours[17].temp%>; var temp418=<%=bigData[4].hours[18].temp%>; var temp419=<%=bigData[4].hours[19].temp%>;
+      var temp420=<%=bigData[4].hours[20].temp%>; var temp421=<%=bigData[4].hours[21].temp%>; var temp422=<%=bigData[4].hours[22].temp%>; var temp423=<%=bigData[4].hours[23].temp%>;
+       var hum40= <%=bigData[4].hours[0].humidity%>;  var hum41= <%=bigData[4].hours[1].humidity%>;  var hum42= <%=bigData[4].hours[2].humidity%>;  var hum43= <%=bigData[4].hours[3].humidity%>;
+       var hum44= <%=bigData[4].hours[4].humidity%>;  var hum45= <%=bigData[4].hours[5].humidity%>;  var hum46= <%=bigData[4].hours[6].humidity%>;  var hum47= <%=bigData[4].hours[7].humidity%>;
+       var hum48= <%=bigData[4].hours[8].humidity%>;  var hum49= <%=bigData[4].hours[9].humidity%>;  var hum410= <%=bigData[4].hours[10].humidity%>;  var hum411= <%=bigData[4].hours[11].humidity%>;
+       var hum412= <%=bigData[4].hours[12].humidity%>;  var hum413= <%=bigData[4].hours[13].humidity%>;  var hum414= <%=bigData[4].hours[14].humidity%>;  var hum415= <%=bigData[4].hours[15].humidity%>;
+       var hum416= <%=bigData[4].hours[16].humidity%>;  var hum417= <%=bigData[4].hours[17].humidity%>;  var hum418= <%=bigData[4].hours[18].humidity%>;  var hum419= <%=bigData[4].hours[19].humidity%>;
+       var hum420= <%=bigData[4].hours[20].humidity%>;  var hum421= <%=bigData[4].hours[21].humidity%>;  var hum422= <%=bigData[4].hours[22].humidity%>;  var hum423= <%=bigData[4].hours[23].humidity%>;
+      var pre40=<%=bigData[4].hours[0].precipprob%>; var pre41=<%=bigData[4].hours[1].precipprob%>; var pre42=<%=bigData[4].hours[2].precipprob%>; var pre43=<%=bigData[4].hours[3].precipprob%>;
+      var pre44=<%=bigData[4].hours[4].precipprob%>; var pre45=<%=bigData[4].hours[5].precipprob%>; var pre46=<%=bigData[4].hours[6].precipprob%>; var pre47=<%=bigData[4].hours[7].precipprob%>;
+      var pre48=<%=bigData[4].hours[8].precipprob%>; var pre49=<%=bigData[4].hours[9].precipprob%>; var pre410=<%=bigData[4].hours[10].precipprob%>; var pre411=<%=bigData[4].hours[11].precipprob%>;
+      var pre412=<%=bigData[4].hours[12].precipprob%>; var pre413=<%=bigData[4].hours[13].precipprob%>; var pre414=<%=bigData[4].hours[14].precipprob%>; var pre415=<%=bigData[4].hours[15].precipprob%>;
+      var pre416=<%=bigData[4].hours[16].precipprob%>; var pre417=<%=bigData[4].hours[17].precipprob%>; var pre418=<%=bigData[4].hours[18].precipprob%>; var pre419=<%=bigData[4].hours[19].precipprob%>;
+      var pre420=<%=bigData[4].hours[20].precipprob%>; var pre421=<%=bigData[4].hours[21].precipprob%>; var pre422=<%=bigData[4].hours[22].precipprob%>; var pre423=<%=bigData[4].hours[23].precipprob%>;
+
+
+        const ctx = document.getElementById("mChart").getContext("2d");
+        const myChart = new Chart(ctx, {
+
+          data: {
+            labels: ["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"],
+            datasets: [
+              { type: "bar",
+                label: "Temperature(celcius)",
+                data: [temp0,temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,temp9,temp10,temp11,temp12,temp13,temp14,temp15,temp16,temp17,temp18,temp19,temp20,temp21,temp22,temp23],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+
+                ],
+                borderWidth: 1,
+              },
+             { type: "line",
+                label: "Precipitation Chance(%)",
+                data: [pre0, pre1, pre2, pre3, pre4, pre5,pre6, pre7, pre8, pre9, pre10, pre11,pre12, pre13, pre14, pre15, pre16, pre17,pre18, pre19, pre20, pre21, pre22, pre23],
+                backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(54, 162, 255, 1)',
+
+                ],
+                tension:0.4,
+           },
+           { type: "line",
+                label: "Humidity(%)",
+                data:[hum0, hum1, hum2, hum3, hum4, hum5,hum6, hum7, hum8, hum9, hum10, hum11,hum12, hum13, hum14, hum15, hum16, hum17,hum18, hum19, hum20, hum21, hum22,hum23],
+                backgroundColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                tension:0.4,
+           }
+        ],
+          },
+          options: {
+           
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const ctx1 = document.getElementById("mChart1").getContext("2d");
+        const myChart1 = new Chart(ctx1, {
+
+          data: {
+            labels: ["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"],
+            datasets: [
+              { type: "bar",
+                label: "Temperature(celcius)",
+                data: [temp10,temp11,temp12,temp13,temp14,temp15,temp16,temp17,temp18,temp19,temp110,temp111,temp112,temp113,temp114,temp115,temp116,temp117,temp118,temp119,temp120,temp121,temp122,temp123],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+
+                ],
+                borderWidth: 1,
+              },
+             { type: "line",
+                label: "Precipitation Chance(%)",
+                data: [pre10, pre11, pre12, pre13, pre14, pre15,pre16, pre17, pre18, pre19, pre110, pre111,pre112, pre113, pre114, pre115, pre116, pre117,pre118, pre119, pre120, pre121, pre122, pre123],
+                backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(54, 162, 255, 1)',
+
+                ],
+                tension:0.4,
+           },
+           { type: "line",
+                label: "Humidity(%)",
+                data:[hum10, hum11, hum12, hum13, hum14, hum15,hum16, hum17, hum18, hum19, hum110, hum111,hum112, hum113, hum114, hum115, hum116, hum117,hum118, hum119, hum120, hum121, hum122,hum123],
+                backgroundColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                tension:0.4,
+           }
+        ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const ctx2 = document.getElementById("mChart2").getContext("2d");
+        const myChart2 = new Chart(ctx2, {
+
+          data: {
+            labels: ["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"],
+            datasets: [
+              { type: "bar",
+                label: "Temperature(celcius)",
+                data: [temp20,temp21,temp22,temp23,temp24,temp25,temp26,temp27,temp28,temp29,temp210,temp211,temp212,temp213,temp214,temp215,temp216,temp217,temp218,temp219,temp220,temp221,temp222,temp223],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+
+                ],
+                borderWidth: 1,
+              },
+             { type: "line",
+                label: "Precipitation Chance(%)",
+                data: [pre20, pre21, pre22, pre23, pre14, pre25,pre26, pre27, pre28, pre29, pre210, pre211,pre212, pre213, pre214, pre215, pre216, pre217,pre218, pre219, pre220, pre221, pre222, pre223],
+                backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(54, 162, 255, 1)',
+
+                ],
+                tension:0.4,
+           },
+           { type: "line",
+                label: "Humidity(%)",
+                data:[hum20, hum21, hum22, hum23, hum24, hum25,hum26, hum27, hum28, hum29, hum210, hum211,hum212, hum213, hum214, hum215, hum216, hum217,hum218, hum219, hum220, hum221, hum222,hum223],
+                backgroundColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                tension:0.4,
+           }
+        ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const ctx3 = document.getElementById("mChart3").getContext("2d");
+        const myChart3 = new Chart(ctx3, {
+
+          data: {
+            labels: ["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"],
+            datasets: [
+              { type: "bar",
+                label: "Temperature(celcius)",
+                data: [temp30,temp31,temp32,temp33,temp34,temp35,temp36,temp37,temp38,temp39,temp310,temp311,temp312,temp313,temp314,temp315,temp316,temp317,temp318,temp319,temp320,temp321,temp322,temp323],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+
+                ],
+                borderWidth: 1,
+              },
+             { type: "line",
+                label: "Precipitation Chance(%)",
+                data: [pre30, pre31, pre32, pre33, pre34, pre35,pre36, pre37, pre38, pre39, pre310, pre311,pre312, pre313, pre314, pre315, pre316, pre317,pre318, pre319, pre320, pre321, pre322, pre323],
+                backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(54, 162, 255, 1)',
+
+                ],
+                tension:0.4,
+           },
+           { type: "line",
+                label: "Humidity(%)",
+                data:[hum30, hum31, hum32, hum33, hum34, hum35,hum36, hum37, hum38, hum39, hum310, hum311,hum312, hum313, hum314, hum315, hum316, hum317,hum318, hum319, hum320, hum321, hum322,hum323],
+                backgroundColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                tension:0.4,
+           }
+        ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const ctx4 = document.getElementById("mChart4").getContext("2d");
+        const myChart4 = new Chart(ctx4, {
+
+          data: {
+            labels: ["12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM","06:00 AM","07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM","09:00 PM","10:00 PM","11:00 PM"],
+            datasets: [
+              { type: "bar",
+                label: "Temperature(celcius)",
+                data: [temp40,temp41,temp42,temp43,temp44,temp45,temp46,temp47,temp48,temp49,temp410,temp411,temp412,temp413,temp414,temp415,temp416,temp417,temp418,temp419,temp420,temp421,temp422,temp423],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+
+                ],
+                borderWidth: 1,
+              },
+             { type: "line",
+                label: "Precipitation Chance(%)",
+                data: [pre40, pre41, pre42, pre43, pre44, pre45,pre46, pre47, pre48, pre49, pre410, pre411,pre412, pre413, pre414, pre415, pre416, pre417,pre418, pre419, pre420, pre421, pre422, pre423],
+                backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(54, 162, 255, 1)',
+
+                ],
+                tension:0.4,
+           },
+           { type: "line",
+                label: "Humidity(%)",
+                data:[hum40, hum41, hum42, hum43, hum44, hum45,hum46, hum47, hum48, hum49, hum410, hum411,hum412, hum413, hum414, hum415, hum416, hum417,hum418, hum419, hum420, hum421, hum422,hum423],
+                backgroundColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                borderColor: [
+
+                'rgba(0, 0, 0, 1)',
+
+                ],
+                tension:0.4,
+           }
+        ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+    </script>
+  </body>
+</html>
